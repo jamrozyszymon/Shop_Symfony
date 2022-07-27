@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\EmployeeRepository;
+use App\Repository\DeliveryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: EmployeeRepository::class)]
-class Employee
+#[ORM\Entity(repositoryClass: DeliveryRepository::class)]
+class Delivery
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,12 +16,15 @@ class Employee
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $firstname = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $lastname = null;
+    private ?string $type = null;
 
-    #[ORM\OneToMany(mappedBy: 'employees', targetEntity: Order::class)]
+    #[ORM\Column(nullable: true)]
+    private ?float $price = null;
+
+    #[ORM\OneToMany(mappedBy: 'deliveries', targetEntity: Order::class)]
     private Collection $orders;
 
     public function __construct()
@@ -34,26 +37,38 @@ class Employee
         return $this->id;
     }
 
-    public function getFirstname(): ?string
+    public function getName(): ?string
     {
-        return $this->firstname;
+        return $this->name;
     }
 
-    public function setFirstname(string $firstname): self
+    public function setName(string $name): self
     {
-        $this->firstname = $firstname;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getLastname(): ?string
+    public function getType(): ?string
     {
-        return $this->lastname;
+        return $this->type;
     }
 
-    public function setLastname(string $lastname): self
+    public function setType(string $type): self
     {
-        $this->lastname = $lastname;
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }
@@ -70,7 +85,7 @@ class Employee
     {
         if (!$this->orders->contains($order)) {
             $this->orders[] = $order;
-            $order->setEmployees($this);
+            $order->setDeliveries($this);
         }
 
         return $this;
@@ -80,8 +95,8 @@ class Employee
     {
         if ($this->orders->removeElement($order)) {
             // set the owning side to null (unless already changed)
-            if ($order->getEmployees() === $this) {
-                $order->setEmployees(null);
+            if ($order->getDeliveries() === $this) {
+                $order->setDeliveries(null);
             }
         }
 
@@ -90,6 +105,6 @@ class Employee
 
     public function __toString()
     {
-        return $this->lastname;
+        return $this->name;
     }
 }

@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Employee;
+use App\Entity\Delivery;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Employee>
+ * @extends ServiceEntityRepository<Delivery>
  *
- * @method Employee|null find($id, $lockMode = null, $lockVersion = null)
- * @method Employee|null findOneBy(array $criteria, array $orderBy = null)
- * @method Employee[]    findAll()
- * @method Employee[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Delivery|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Delivery|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Delivery[]    findAll()
+ * @method Delivery[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EmployeeRepository extends ServiceEntityRepository
+class DeliveryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Employee::class);
+        parent::__construct($registry, Delivery::class);
     }
 
-    public function add(Employee $entity, bool $flush = false): void
+    public function add(Delivery $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class EmployeeRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Employee $entity, bool $flush = false): void
+    public function remove(Delivery $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class EmployeeRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Employee[] Returns an array of Employee objects
+//     * @return Delivery[] Returns an array of Delivery objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class EmployeeRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Employee
+//    public function findOneBySomeField($value): ?Delivery
 //    {
 //        return $this->createQueryBuilder('e')
 //            ->andWhere('e.exampleField = :val')

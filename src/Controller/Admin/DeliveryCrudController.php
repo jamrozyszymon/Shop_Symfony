@@ -2,28 +2,28 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\ProductCategory;
+use App\Entity\Delivery;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class ProductCategoryCrudController extends AbstractCrudController
+class DeliveryCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return ProductCategory::class;
+        return Delivery::class;
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
             TextField::new('name', 'Nazwa'),
-            TextField::new('code', 'Kod'),
-            TextEditorField::new('description', 'Opis'),
-            AssociationField::new('products', 'Liczba produktów')
+            TextField::new('type', 'Rodzaj'),
+            MoneyField::new('price', 'Koszt')
+            ->setCurrency('PLN'),
+            AssociationField::new('orders', 'Liczba zamówień')
             ->hideWhenCreating(),
-
         ];
     }
 }

@@ -6,8 +6,10 @@ use App\Repository\CustomerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Customer
 {
     #[ORM\Id]
@@ -15,24 +17,39 @@ class Customer
     #[ORM\Column()]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[Assert\Email(
+        message: 'Wprowadzony email: {{ value }}, nie jest poprawny.',
+    )]
+    #[ORM\Column(length: 80, unique:true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
+    #[Assert\NotBlank(
+        message: 'Pole nie może być puste',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
 
+    #[Assert\NotBlank(
+        message: 'Pole nie może być puste',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
+    #[Assert\NotBlank(
+        message: 'Pole nie może być puste',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $Address = null;
 
+    #[Assert\NotBlank(
+        message: 'Pole nie może być puste',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $City = null;
 
@@ -102,9 +119,10 @@ class Customer
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    #[ORM\PrePersist]
+    public function setCreatedAt(): self
     {
-        $this->created_at = $created_at;
+        $this->created_at = new \DateTimeImmutable("now");
 
         return $this;
     }

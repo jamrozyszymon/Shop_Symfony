@@ -6,8 +6,10 @@ use App\Entity\ProductCategory;
 use App\Entity\Product;
 use App\Entity\Order;
 use App\Entity\Customer;
-use App\Entity\Employee;
 use App\Entity\OrderDetail;
+use App\Entity\Delivery;
+use App\Entity\O;
+use App\Entity\OD;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -67,8 +69,9 @@ class DashboardController extends AbstractDashboardController
             MenuItem::section('Klienci'),
             MenuItem::linkToCrud('Klienci', 'fa fa-tags', Customer::class),
 
-            MenuItem::section('Pracownicy'),
-            MenuItem::linkToCrud('Pracownicy', 'fa fa-tags', Employee::class),
+            MenuItem::section('Dostawcy'),
+            MenuItem::linkToCrud('Dostawcy', 'fa fa-tags', Delivery::class),
+
         ];
     }
 }

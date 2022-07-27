@@ -23,14 +23,14 @@ class ProductCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('name'),
-            IntegerField::new('number'),
-            TextEditorField::new('content'),
-            AssociationField::new('categories'),
-            MoneyField::new('price')
+            TextField::new('name', 'Nazwa'),
+            TextField::new('code', 'Kod'),
+            TextEditorField::new('content', 'Opis'),
+            AssociationField::new('categories', 'Kategoria'),
+            MoneyField::new('price', 'Cena')
             ->setCurrency('PLN'),
-            IntegerField::new('discount'),
-            IntegerField::new('quantity'),
+            IntegerField::new('discount', 'Zniżka'),
+            IntegerField::new('quantity', 'Ilość'),
 
         ];
     }

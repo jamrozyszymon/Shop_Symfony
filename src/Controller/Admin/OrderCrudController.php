@@ -21,12 +21,15 @@ class OrderCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            AssociationField::new('customers'),
-            AssociationField::new('employees'),
-            DateTimeField::new('created_at'),
-            MoneyField::new('total')
+            AssociationField::new('customers', 'Klient'),
+            AssociationField::new('deliveries', 'Dostawca'),
+            AssociationField::new('orderDetails', 'Zam. Sz. Ilość' ),
+            TextField::new('number', 'Numer zamówienia'),
+            DateTimeField::new('created_at', 'Utworzono')
+            ->hideWhenCreating(),
+            MoneyField::new('total', 'Wartość')
             ->setCurrency('PLN'),
-            TextField::new('status'),
+            TextField::new('status', 'Status'),
  
         ];
     }

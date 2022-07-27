@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -14,11 +17,17 @@ class Product
     #[ORM\Column()]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Nazwa produktu musi posiadać co najmniej  {{ limit }} znaki',
+        maxMessage: 'Nazwa produktu musi posiadać co najwyżej  {{ limit }} znaków',
+    )]
+    #[ORM\Column(length: 255, unique:true)]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $number = null;
+    private ?string $code = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     private ?ProductCategory $categories = null;
@@ -34,6 +43,14 @@ class Product
 
     #[ORM\Column]
     private ?int $quantity = null;
+
+    #[ORM\OneToMany(mappedBy: 'products', targetEntity: OrderDetail::class)]
+    private Collection $orderDetails;
+
+    public function __construct()
+    {
+        $this->orderDetails = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,14 +69,14 @@ class Product
         return $this;
     }
 
-    public function getNumber(): ?string
+    public function getCode(): ?string
     {
-        return $this->number;
+        return $this->code;
     }
 
-    public function setNumber(string $number): self
+    public function setCode(string $code): self
     {
-        $this->number = $number;
+        $this->code = $code;
 
         return $this;
     }
@@ -128,4 +145,35 @@ class Product
     {
         return $this->name;
     }
+
+    /**
+     * @return Collection<int, OrderDetail>
+     */
+    public function getOrderDetails(): Collection
+    {
+        return $this->orderDetails;
+    }
+
+    public function addOrderDetail(OrderDetail $orderDetail): self
+    {
+        if (!$this->orderDetails->contains($orderDetail)) {
+            $this->orderDetails[] = $orderDetail;
+            $orderDetail->setProducts($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderDetail(OrderDetail $orderDetail): self
+    {
+        if ($this->orderDetails->removeElement($orderDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($orderDetail->getProducts() === $this) {
+                $orderDetail->setProducts(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

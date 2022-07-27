@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use UnitEnum;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductCategoryRepository::class)]
 class ProductCategory
@@ -16,11 +18,17 @@ class ProductCategory
     #[ORM\Column()]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Nazwa kategorii musi posiadać co najmniej  {{ limit }} znaki',
+        maxMessage: 'Nazwa kategorii musi posiadać co najwyżej  {{ limit }} znaków',
+    )]
+    #[ORM\Column(length: 255, unique:true)]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $number = null;
+    private ?string $code = null;
 
     #[ORM\OneToMany(mappedBy: 'categories', targetEntity: Product::class)]
     private Collection $products;
@@ -50,14 +58,14 @@ class ProductCategory
         return $this;
     }
 
-    public function getNumber(): ?string
+    public function getCode(): ?string
     {
-        return $this->number;
+        return $this->code;
     }
 
-    public function setNumber(string $number): self
+    public function setCode(string $code): self
     {
-        $this->number = $number;
+        $this->code = $code;
 
         return $this;
     }
