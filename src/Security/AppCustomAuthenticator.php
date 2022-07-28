@@ -13,6 +13,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
@@ -21,8 +22,9 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'app_login';
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    public function __construct(private UrlGeneratorInterface $urlGenerator, Security $security)
     {
+        $this->security= $security;
     }
 
     public function authenticate(Request $request): Passport
@@ -39,19 +41,47 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
             ]
         );
     }
+    
+    // public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+    // {
+    //     if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+    //         return new RedirectResponse($targetPath);
+    //     }
 
+    //     return new RedirectResponse($this->urlGenerator->generate('admin'));
+    //     throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+    // }
+
+    /**
+     * redirecting to admin or user dashboard
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
+        
+        if ($this->security->isGranted('ROLE_ADMIN'))
+        {
+            return new RedirectResponse($this->urlGenerator->generate('admin'));
+        } elseif ($this->security->isGranted('ROLE_USER')) {
 
-        return new RedirectResponse($this->urlGenerator->generate('admin'));
+            return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
+        }
+       
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+    }
+
+
+    public function start(Request $request, AuthenticationException $authException = null): Response
+    {
+        $url = $this->getLoginUrl($request);
+
+        return new RedirectResponse($url);
     }
 }

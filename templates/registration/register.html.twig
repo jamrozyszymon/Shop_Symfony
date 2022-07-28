@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rejestracja{% endblock %}
+
+{% block body %}
+    <h1>Rejestracja</h1>
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email, {
+             label: 'E-mail'
+        }) }}
+        {# {{ form_row(registrationForm.plainPassword, {
+            label: 'Hasło'
+        }) }} #}
+        {{ form_row(registrationForm.plainPassword.first, {
+            label: 'Hasło'
+        }) }}
+        {{ form_row(registrationForm.plainPassword.second, {
+            label: 'Powtórz hasło'
+        }) }}
+        {{ form_row(registrationForm.agreeTerms, {
+             label: 'Zapoznałem się z regulaminem'
+        }) }}
+
+        <button type="submit" class="btn">Zarejestruj się</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}
