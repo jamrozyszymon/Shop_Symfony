@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Order;
-use DateTime;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -21,9 +20,10 @@ class OrderCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            AssociationField::new('customers', 'Klient'),
+            AssociationField::new('users', 'Klient'),
             AssociationField::new('deliveries', 'Dostawca'),
-            AssociationField::new('orderDetails', 'Zam. Sz. Ilość' ),
+            AssociationField::new('orderDetails', 'Zam. Sz. Ilość' )
+            ->hideWhenCreating(),
             TextField::new('number', 'Numer zamówienia'),
             DateTimeField::new('created_at', 'Utworzono')
             ->hideWhenCreating(),

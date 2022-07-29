@@ -1,0 +1,14 @@
+{% block nav %}
+  Kategorie:
+  <br>
+  test
+  <br>
+  test
+    {# {% for category in categories %}
+
+    <li class="nav-item">
+      <a class="nav-link active" href={{path('post_display', {'categoryname':category.name|lower|slug, 'id':category.id})}}>{{category.name}}</a>
+    </li>
+
+    {% endfor %} #}
+{% endblock %}

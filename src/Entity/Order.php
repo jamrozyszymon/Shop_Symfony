@@ -22,7 +22,7 @@ class Order
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Customer $customers = null;
+    private ?User $users = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
@@ -50,14 +50,14 @@ class Order
         return $this->id;
     }
 
-    public function getCustomers(): ?Customer
+    public function getUsers(): ?User
     {
-        return $this->customers;
+        return $this->users;
     }
 
-    public function setCustomers(?Customer $customers): self
+    public function setUsers(?User $users): self
     {
-        $this->customers = $customers;
+        $this->users = $users;
 
         return $this;
     }
@@ -123,11 +123,6 @@ class Order
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->id;
-    }
-
     /**
      * @return Collection<int, OrderDetail>
      */
@@ -156,5 +151,10 @@ class Order
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->id;
     }
 }

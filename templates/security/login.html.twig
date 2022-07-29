@@ -3,7 +3,7 @@
 {% block title %}Logowanie{% endblock %}
 
 {% block body %}
-<form method="post">
+<form class="px-4 py-3" method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
