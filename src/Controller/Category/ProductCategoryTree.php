@@ -46,6 +46,7 @@ class ProductCategoryTree extends AbstractCategory
         return $this->categoryList;
     }
 
+    //display main parent for subcategories
     public function getMainParent(int $id): array 
     {
         $key = array_search($id, array_column($this->allCategories, 'id'));

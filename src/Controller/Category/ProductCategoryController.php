@@ -4,49 +4,33 @@ namespace App\Controller\Category;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Product;
-use Doctrine\Persistence\ManagerRegistry;
-use App\Entity\ProductCategory;
+use App\Controller\Category\ProductSubCategoryTree;
 
 class ProductCategoryController extends AbstractController
 {
-
     /**
-     * display main product category in Nav section
+     * CORRECT - NOT USED
+     * display main product category in Nav section (with href)
      */
-    public function categoryListNav(ManagerRegistry $doctrine)
-    {
-        $categories = $doctrine->getRepository(ProductCategory::class)->findBy(['parent'=>null], ['name'=>'ASC']);
-        return $this->render('category/category-list-nav.html.twig',[
-            'categories'=>$categories
-        ] );
-
-    }
-
-    // public function categoryListNav(ProductCategoryTree $categories): Response
+    // public function categoryListNav(ManagerRegistry $doctrine)
     // {
-    //     $categories->getCategoriesList($categories->buildTree());
-    //     dd($categories);
+    //     $categories = $doctrine->getRepository(ProductCategory::class)->findBy(['parent'=>null], ['name'=>'ASC']);
     //     return $this->render('category/category-list-nav.html.twig',[
-    //         'categories'=>$categories->categoryList
+    //         'categories'=>$categories
     //     ] );
 
     // }
 
-
-
-    #[Route('/product-list/category/{categoryname},{id}', name: 'app_product_list')]
-    public function productList(ManagerRegistry $doctrine, int $id, ProductCategoryTree $categories): Response
+    /**
+     * display category and subcategory as a nasted list in Nav section (with href)
+     */
+    public function subCategoryListNav(ProductSubCategoryTree $categories): Response
     {
-        $product = $doctrine->getRepository(Product::class)->findAll();
+        $categories->getCategoriesList($categories->buildTree());
+        return $this->render('category/subcategories-list.html.twig',[
+            'categories'=>$categories->categoryList
+        ] );
 
-        $categories->getCategoryListAndParent($id);
-
-
-        return $this->render('product/index.html.twig',[
-            'subcategories'=> $categories,
-            'products' =>$product
-        ]);
     }
+
 }
