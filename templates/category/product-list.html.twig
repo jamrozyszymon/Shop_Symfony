@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Kategorie
+        </button>
+        <ul class="dropdown-menu">
+             <li><a href="{{path('app_product_list',{'categoryname':subcategories.mainParentName|lower, 'id':subcategories.mainParentId})}}">{{subcategories.mainParentName}}</a></li>
+            {{subcategories.categoryList|raw}}
+        </ul>
+    </div>
+    
+{% endblock %}

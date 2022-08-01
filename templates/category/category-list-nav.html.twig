@@ -1,0 +1,9 @@
+{% block nav %}
+    <ul class="list-group list-group-flush">
+        {% for category in categories %}
+            <li class="list-group-item">
+                <a class="nav-link active" href="{{path('app_product_list', {'categoryname':category.name|lower, 'id':category.id})}}">{{ category.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,9 @@
+easy_admin:
+    entities:
+        Product:
+            class: App\Entity\Product
+            form:  # <-- 'form' is applied to both 'new' and 'edit' views
+                fields:
+                    - 'id'
+                    - { property: 'name', label: 'Nazwa Kategorii' }
+                    - { property: 'code', label: 'Kod Kategorii' }

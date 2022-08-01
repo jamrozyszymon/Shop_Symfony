@@ -24,7 +24,7 @@ class ProductCategory
         minMessage: 'Nazwa kategorii musi posiadać co najmniej  {{ limit }} znaki',
         maxMessage: 'Nazwa kategorii musi posiadać co najwyżej  {{ limit }} znaków',
     )]
-    #[ORM\Column(length: 255, unique:true)]
+    #[ORM\Column(length: 255)]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
@@ -36,9 +36,16 @@ class ProductCategory
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'subcategory')]
+    private ?self $parent = null;
+
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    private Collection $subcategory;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->subcategory = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -115,5 +122,47 @@ class ProductCategory
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): self
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getSubcategory(): Collection
+    {
+        return $this->subcategory;
+    }
+
+    public function addSubcategory(self $subcategory): self
+    {
+        if (!$this->subcategory->contains($subcategory)) {
+            $this->subcategory->add($subcategory);
+            $subcategory->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubcategory(self $subcategory): self
+    {
+        if ($this->subcategory->removeElement($subcategory)) {
+            // set the owning side to null (unless already changed)
+            if ($subcategory->getParent() === $this) {
+                $subcategory->setParent(null);
+            }
+        }
+
+        return $this;
     }
 }
