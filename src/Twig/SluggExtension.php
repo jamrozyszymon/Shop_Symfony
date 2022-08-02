@@ -6,12 +6,12 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
-class AppExtension extends AbstractExtension
+class SluggExtension extends AbstractExtension
 {
     public function getFilters(): array
     {
         return [
-            new TwigFilter('slug', [$this, 'slug']),
+            new TwigFilter('slugg', [$this, 'slugg']),
         ];
     }
 
@@ -22,7 +22,7 @@ class AppExtension extends AbstractExtension
         ];
     }
 
-    public function doSlug($string)
+    public function doSlugg($string)
     {
         $string = preg_replace("/ +/", "-", trim($string));
         $string = mb_strtolower(preg_replace('/[^A-Za-z0-9-]+/', '', $string), 'UTF-8');

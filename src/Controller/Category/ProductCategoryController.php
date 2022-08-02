@@ -5,6 +5,8 @@ namespace App\Controller\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use App\Controller\Category\ProductSubCategoryTree;
+use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\ProductCategory;
 
 class ProductCategoryController extends AbstractController
 {

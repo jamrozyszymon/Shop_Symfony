@@ -2,6 +2,10 @@
 
 namespace App\Controller\Category;
 
+/**
+ * Prepare list fo categories (without subcategories)
+ * NOT USED
+ */
 class ProductCategoryTree extends AbstractCategory
 {
     public $ul='<ul>';
@@ -30,23 +34,20 @@ class ProductCategoryTree extends AbstractCategory
     {
 
         $this->categoryList .= $this->ul;
-        foreach($categoriesArray as $category) {
-            $categoryName = $category['name'];
-            $url = $this->urlGenerator->generate('app_product_list', [
-                'categoryname' =>$categoryName,
-                'id'=> $category['id']]);
-            $this->categoryList .= $this->li.'<a href="'.$url.'">'.$categoryName.'</a>';
-
-            if(!empty($category['children'])) {
-                $this->getCategoriesList($category['children']);
+            foreach($categoriesArray as $category) {
+                $categoryName = $category['name'];
+                $url = $this->urlGenerator->generate('app_product_list', [
+                    'categoryname' =>$categoryName,
+                    'id'=> $category['id']]);
+                $this->categoryList .= $this->li.'<a href="'.$url.'">'.$categoryName.'</a>';
             }
-            $this->categoryList .=$this->liC;
-        }
         $this->categoryList .= $this->ulC;
         return $this->categoryList;
     }
 
-    //display main parent for subcategories
+    /**
+     * display parent for subcategories
+     */
     public function getMainParent(int $id): array 
     {
         $key = array_search($id, array_column($this->allCategories, 'id'));

@@ -17,7 +17,7 @@ abstract class AbstractCategory extends ServiceEntityRepository
     public function __construct(
         protected EntityManagerInterface $entityManager,
         protected ManagerRegistry $registry,
-        protected UrlGeneratorInterface $urlGenerator,)
+        public UrlGeneratorInterface $urlGenerator,)
     {
         parent::__construct($registry, Category::class);
         $this->allCategories = $this->getCategories();
@@ -26,7 +26,7 @@ abstract class AbstractCategory extends ServiceEntityRepository
     abstract public function getCategoriesList(array $categoriesArray);
 
     /**
-     * 
+     * Build nested tree of category
      */
     public function buildTree(int $parent_id= null): array
     {
