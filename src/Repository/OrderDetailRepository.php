@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\OrderDetail;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Integer;
+use Doctrine\DBAL\ParameterType;
 
 /**
  * @extends ServiceEntityRepository<OrderDetail>
@@ -37,6 +39,34 @@ class OrderDetailRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * CHANGE LIMITS AFTER INCREASE DATABASE
+     * return top products with highest sales (the highest number of sales one) in specified number of last sales
+     * @param int $orderLimit - limit of last sales (e.g. 1000)
+     * @param int $productLimit - limit of products with highest sales from specified order (e.g. 50)
+     */
+    public function findTopSalesProducts($order, $product)
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT products_id, SUM(quantity) AS num_pr FROM order_detail 
+            WHERE orders_id IN 
+            (SELECT * FROM
+            (select id FROM `order` ORDER BY created_at DESC LIMIT :orderlimit) AS q)
+            GROUP BY products_id ORDER BY num_pr DESC LIMIT :productlimit';
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(":orderlimit", $order, ParameterType::INTEGER);
+        $stmt->bindValue(":productlimit",$product, ParameterType::INTEGER);
+
+        $resultSet = $stmt->executeQuery();
+            
+        return $resultSet->fetchAllAssociative();
+
     }
 
 //    /**

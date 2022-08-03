@@ -1,6 +1,5 @@
-{% extends "base.html.twig" %}
 
     {% block body %}
-        Home
+        {{ render(controller("App\\Controller\\ProductController::productTopList")) }}
     {% endblock %}
 

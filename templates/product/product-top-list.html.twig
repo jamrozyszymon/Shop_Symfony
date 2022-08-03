@@ -1,16 +1,11 @@
 {% extends 'base.html.twig' %}
 
 
+
 {% block body %}
     <div class="album py-5 bg-light">
         <div class="container">
-            {# display string if render productTop list or display name of subcategory if render product List by subcategory#}
-            <h1> {% if not app.request.get('categoryname')  %}
-                        Najchętniej kupowane 
-                        {% else %}
-                        {{ app.request.get('categoryname')}} 
-                    {% endif %}
-            </h1>
+            <h1> Najchętniej kupowane </h1>
             <div class="row">
                 {% for product in paginations %}
                 <div class="col-md-4">
