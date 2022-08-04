@@ -26,4 +26,5 @@ yarn-error.log
 ###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache
+.phpunit.xml.dist
 ###< phpunit/phpunit ###
