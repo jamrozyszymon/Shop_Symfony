@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Product>
@@ -16,7 +18,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProductRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, public PaginatorInterface $paginator)
     {
         parent::__construct($registry, Product::class);
     }
@@ -37,6 +39,38 @@ class ProductRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * return products consider sorting by
+     * @param $category Category name from request
+     * @param $page pagination
+     * @param $sortMethod Method of sorting from form
+     */
+    public function getProductWithSorting($category, $page, ?string $sortMethod): PaginationInterface
+    {
+        if($sortMethod =='price_asc') {
+            $qb = $this->createQueryBuilder('p')
+            ->where('p.categories = :val')
+            ->setParameter('val', $category)
+            ->orderBy('p.price', 'ASC');
+        } else if($sortMethod =='price_desc') {
+            $qb = $this->createQueryBuilder('p')
+            ->where('p.categories = :val')
+            ->setParameter('val', $category)
+            ->orderBy('p.price', 'DESC');
+        } else {
+            $qb = $this->createQueryBuilder('p')
+            ->where('p.categories = :val')
+            ->setParameter('val', $category)
+            ->orderBy('p.name', 'ASC');
+        }
+
+        $query = $qb->getQuery();
+
+        $pagination = $this->paginator->paginate($query, $page, 12);
+        return $pagination;
+
     }
 
 //    /**

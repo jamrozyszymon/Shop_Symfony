@@ -4,15 +4,39 @@
 {% block body %}
     <div class="album py-5 bg-light">
         <div class="container">
-            {# display string if render productTop list or display name of subcategory if render product List by subcategory#}
-            <h1> {% if not app.request.get('categoryname')  %}
-                        Najchętniej kupowane 
-                        {% else %}
-                        {{ app.request.get('categoryname')}} 
+            <div class ="product-list-nav">
+
+                    {# display string if render productTop list or display name of subcategory and "sortby" select if render product List by subcategory#}
+                   
+                    {% if not app.request.get('categoryname')  %}
+                        <div class ="product-list-nav-title">
+                            <h2>Najchętniej kupowane</h2>
+                        </div>
+                
+                    {% else %}
+                        <div class ="product-list-nav-title">
+                            <h2>{{ app.request.get('categoryname')}}</h2>
+                        </div>
+
+                        <div class ="product-list-nav-sort">
+                            <form id="from-sort" action="" method="GET">
+                                <select name="sortby" class="form-select" onchange='this.form.submit();'>
+                                    <option selected>Sortowanie</option>
+                                    {# <option value="rating">Najwyżej oceniane</option> #}
+                                    <option value="title">Alfabetycznie</option>
+                                    <option value="price_asc">Cena rosnąco</option>
+                                    <option value="price_desc">Cena malejąco</option>
+                                </select>
+                                {% if query is defined %}
+                                    <input type="hidden" name="query" value="{{query}}">
+                                {% endif %}
+                            </form>
+                        </div>
                     {% endif %}
-            </h1>
+
+            </div>
             <div class="row">
-                {% for product in paginations %}
+                {% for product in products %}
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm">
                         <div align="center" class="embed-responsive embed-responsive-16by9">
@@ -43,7 +67,7 @@
             </div>
         </div>
         <div>
-            {{ knp_pagination_render(paginations)}}
+            {{ knp_pagination_render(products)}}
         </div>
     </div>
 

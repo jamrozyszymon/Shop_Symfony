@@ -4,14 +4,14 @@ namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ProductControllerTest extends WebTestCase
+class HomeControllerTest extends WebTestCase
 {
-    public function testDisplayProductTopList(): void
+    public function testHeaderDisplay(): void
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h2', 'Najchętniej kupowane');
+        $this->assertSelectorTextContains('a', 'SHOP');
     }
 }

@@ -11,26 +11,39 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
 use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ProductRepository;
 
 class ProductController extends AbstractController
 {
     /**
      * display products by subcategory
      */
-    #[Route('/product-list/category/{categoryname},{id}', name: 'app_product_list')]
-    public function productList(ManagerRegistry $doctrine, int $id, PaginatorInterface $paginator, Request $request): Response
+    #[Route('/product-list/category/{categoryname},{id}/{!page?1}', name: 'app_product_list')]
+    public function productList(ManagerRegistry $doctrine, int $id, $page, PaginatorInterface $paginator, Request $request): Response
     {
-        $products = $doctrine->getRepository(Product::class)->findBy(['categories' => $id]);
-
-        $paginate = $paginator->paginate(
-            $products,
-            $request->query->getInt('page',1), 12
-        );
+        $products = $doctrine->getRepository(Product::class)
+        ->getProductWithSorting(['categories' => $id], $page ,$request->get('sortby'));
 
         return $this->render('product/product-list.html.twig',[
-            'paginations' => $paginate
+            'products' => $products
         ]);
     }
+    
+
+    // #[Route('/product-list/category/{categoryname},{id}', name: 'app_product_list')]
+    // public function productList(ManagerRegistry $doctrine, int $id, PaginatorInterface $paginator, Request $request): Response
+    // {
+    //     $products = $doctrine->getRepository(Product::class)->findBy(['categories' => $id]);
+
+    //     $paginate = $paginator->paginate(
+    //         $products,
+    //         $request->query->getInt('page',1), 12
+    //     );
+
+    //     return $this->render('product/product-list.html.twig',[
+    //         'paginations' => $paginate
+    //     ]);
+    // }
 
     /**
      * display top sales products
@@ -54,7 +67,7 @@ class ProductController extends AbstractController
         );
 
         return $this->render('product/product-list.html.twig',[
-            'paginations' => $paginate
+            'products' => $paginate
         ]);
     }
 
