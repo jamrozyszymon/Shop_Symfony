@@ -28,11 +28,11 @@
      
                {% if app.user %}  
                     <li class="nav-item">
-                        <a class="nav-link" href={{path('app_logout')}}>Wiadomości</a>
+                        <a class="nav-link" href={{path('app_dashboard')}}>Wiadomości</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href={{path('app_logout')}}>Koszyk</a>
+                        <a class="nav-link" href={{path('app_dashboard')}}>Koszyk</a>
                     </li>
 
                     <li class="nav-item">
@@ -40,10 +40,10 @@
                     </li>
                  {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href={{path('app_logout')}}>Zaloguj się</a>
+                        <a class="nav-link" href={{path('app_login')}}>Zaloguj się</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href={{path('app_logout')}}>Zarejestruj się</a>
+                        <a class="nav-link" href={{path('app_register')}}>Zarejestruj się</a>
                     </li>
                 {% endif %}
             </ul>

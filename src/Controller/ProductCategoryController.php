@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller\Category;
+namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use App\Controller\Category\ProductSubCategoryTree;
+use App\Feature\Category\ProductSubCategoryTree;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\ProductCategory;
 

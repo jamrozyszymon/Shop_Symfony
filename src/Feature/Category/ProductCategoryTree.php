@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Category;
+namespace App\Feature\Category;
 
 /**
  * Prepare list fo categories (without subcategories)

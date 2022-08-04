@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Category;
+namespace App\Feature\Category;
 
 use App\Twig\SluggExtension;
 

@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Tests\Controller\Category;
+namespace App\Tests\Feature;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use App\Twig\SluggExtension;
-use App\Controller\Category\ProductSubCategoryTree;
 
 class ProductSubCategoryTreeTest extends KernelTestCase
 {
@@ -18,7 +15,7 @@ class ProductSubCategoryTreeTest extends KernelTestCase
         $container = static::getContainer();
         $urlGenerator = $container->get('router');
 
-        $this->mockedProductSubCategoryTree = $this->getMockBuilder('App\Controller\Category\ProductSubCategoryTree')
+        $this->mockedProductSubCategoryTree = $this->getMockBuilder('App\Feature\Category\ProductSubCategoryTree')
          ->disableOriginalConstructor()
          ->onlyMethods([]) // if no, all methods return null unless mocked
          ->getMock();
