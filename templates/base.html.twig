@@ -18,24 +18,26 @@
             {% endblock %}
         </header>
 
-        <nav>
-            {% block nav %}
-                {% include 'nav/nav.html.twig' %}
-            {% endblock %}
-        </nav>
+        <div class="container">
+            <nav>
+                {% block nav %}
+                    {% include 'nav/nav.html.twig' %}
+                {% endblock %}
+            </nav>
 
-        <main>
-            <article>
-                {% block body %}
-                
-                {% endblock %}
-            </article>
-            <aside>
-                {% block aside %}
-                    {% include 'aside/aside.html.twig' %}
-                {% endblock %}
-            </aside>
-        </main>
+            <main>
+                <article>
+                    {% block body %}
+                    
+                    {% endblock %}
+                </article>
+                <aside>
+                    {% block aside %}
+                        {% include 'aside/aside.html.twig' %}
+                    {% endblock %}
+                </aside>
+            </main>
+        </div>
 
         <footer>
             {% include 'footer/footer.html.twig' %}

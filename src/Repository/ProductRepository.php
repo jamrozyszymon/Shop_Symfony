@@ -42,6 +42,39 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
+     * exlode string
+     */
+    private function explodeString(string $input): array
+    {
+        return explode(" ",$input);
+    }
+
+    /**
+     * return products consider serching by
+     * @param $page pagination
+     * @param $searchString searching phrase
+     */
+    public function findBySearch($page, $searchString): PaginationInterface
+    {
+        $explodeString = $this->explodeString($searchString);
+        
+        $qb = $this->createQueryBuilder('p');
+
+        foreach($explodeString as $key => $value)
+        {
+            $qb->andWhere('p.name LIKE :val'.$key)
+            ->setParameter('val'.$key, '%'.$value.'%');
+        }
+
+        $qb->orderBy('p.name', 'ASC');
+
+        $query = $qb->getQuery();
+
+        $pagination = $this->paginator->paginate($query, $page, 12);
+        return $pagination;
+    }
+
+    /**
      * return products consider sorting by
      * @param $category Category name from request
      * @param $page pagination
