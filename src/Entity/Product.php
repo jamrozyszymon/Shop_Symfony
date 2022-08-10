@@ -44,6 +44,9 @@ class Product
     #[ORM\Column]
     private ?int $quantity = null;
 
+    #[ORM\Column(length: 255, unique:true)]
+    private ?string $imagesFileName = null;
+
     #[ORM\OneToMany(mappedBy: 'products', targetEntity: OrderDetail::class)]
     private Collection $orderDetails;
 
@@ -137,6 +140,18 @@ class Product
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getImagesFileName(): ?string
+    {
+        return $this->imagesFileName;
+    }
+
+    public function setImagesFileName(string $imagesFileName): self
+    {
+        $this->imagesFileName = $imagesFileName;
 
         return $this;
     }

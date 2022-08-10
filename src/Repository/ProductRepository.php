@@ -71,6 +71,7 @@ class ProductRepository extends ServiceEntityRepository
         $query = $qb->getQuery();
 
         $pagination = $this->paginator->paginate($query, $page, 12);
+        
         return $pagination;
     }
 
@@ -80,7 +81,7 @@ class ProductRepository extends ServiceEntityRepository
      * @param $page pagination
      * @param $sortMethod Method of sorting from form
      */
-    public function getProductWithSorting($category, $page, ?string $sortMethod): PaginationInterface
+    public function findProductWithSorting($category, $page, ?string $sortMethod): PaginationInterface
     {
         if($sortMethod =='price_asc') {
             $qb = $this->createQueryBuilder('p')

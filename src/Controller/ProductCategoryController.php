@@ -29,8 +29,9 @@ class ProductCategoryController extends AbstractController
     public function subCategoryListNav(ProductSubCategoryTree $categories): Response
     {
         $categories->getCategoriesList($categories->buildTree());
+
         return $this->render('category/subcategories-list.html.twig',[
-            'categories'=>$categories->categoryList
+            'categories'=>$categories->categoryList,
         ] );
 
     }

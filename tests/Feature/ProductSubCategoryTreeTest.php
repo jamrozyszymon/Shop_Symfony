@@ -42,7 +42,7 @@ class ProductSubCategoryTreeTest extends KernelTestCase
     public function dataForSubCategoryTree()
     {
         yield [
-            '<ul><li>Kategoria 1<ul><li><a href="/product-list/category/podkategoria-i,3">Podkategoria I</a></li></ul></li><li>Kategoria 3</li></ul>',
+            '<ul><li>Kategoria 1<ul><li><a href="/product-list/category/podkategoria-i,3/1">Podkategoria I</a></li></ul></li><li>Kategoria 3</li></ul>',
         [
             ['id' => 1, 'name' => 'Kategoria 1', 'parent_id' => null],
             ['id' => 3, 'name' => 'Podkategoria I', 'parent_id' => 1],

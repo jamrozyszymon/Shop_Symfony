@@ -44,8 +44,8 @@ class OrderDetailRepository extends ServiceEntityRepository
     /**
      * CHANGE LIMITS AFTER INCREASE DATABASE
      * return top products with highest sales (the highest number of sales one) in specified number of last sales
-     * @param int $orderLimit - limit of last sales (e.g. 1000)
-     * @param int $productLimit - limit of products with highest sales from specified order (e.g. 50)
+     * @param int $order - limit of last sales (e.g. 1000)
+     * @param int $product - limit of products with highest sales from specified order (e.g. 50)
      */
     public function findTopSalesProducts($order, $product)
     {

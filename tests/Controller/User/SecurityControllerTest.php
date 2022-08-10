@@ -3,8 +3,9 @@
 namespace App\Tests\Controller\User;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Repository\UserRepository;
 
-class LoginControllerTest extends WebTestCase
+class SecurityControllerTest extends WebTestCase
 {
     public function testRedirectLoginPage(): void
     {
@@ -14,4 +15,6 @@ class LoginControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Logowanie');
     }
+
+
 }

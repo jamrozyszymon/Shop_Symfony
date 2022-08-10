@@ -22,7 +22,7 @@ class ProductController extends AbstractController
     public function productList(ManagerRegistry $doctrine, int $id, $page, Request $request): Response
     {
         $products = $doctrine->getRepository(Product::class)
-        ->getProductWithSorting(['categories' => $id], $page ,$request->get('sortby'));
+        ->findProductWithSorting(['categories' => $id], $page ,$request->get('sortby'));
 
         return $this->render('product/product-list.html.twig',[
             'products' => $products
@@ -81,7 +81,7 @@ class ProductController extends AbstractController
             $request->query->getInt('page',1), 12
         );
 
-        return $this->render('product/product-list.html.twig',[
+        return $this->render('product/product-top-list.html.twig',[
             'products' => $paginate
         ]);
     }

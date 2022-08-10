@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 
@@ -30,6 +31,7 @@ class ProductCrudController extends AbstractCrudController
             ->setCurrency('PLN'),
             IntegerField::new('discount', 'Zniżka'),
             IntegerField::new('quantity', 'Ilość'),
+            ImageField::new('imagesFileName', 'Obraz')->setUploadDir('assets/images/'),
 
         ];
     }
