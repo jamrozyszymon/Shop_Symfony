@@ -3,9 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrderDetailRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OrderDetailRepository::class)]
 class OrderDetail
@@ -16,6 +15,8 @@ class OrderDetail
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank()]
+    #[Assert\GreaterThanOrEqual(1)]
     private ?int $quantity = null;
 
     #[ORM\ManyToOne(inversedBy: 'orderDetails')]
@@ -23,7 +24,7 @@ class OrderDetail
     private ?Product $products = null;
 
     #[ORM\ManyToOne(inversedBy: 'orderDetails')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete:'cascade')]
     private ?Order $orders = null;
 
     public function getId(): ?int
@@ -41,11 +42,6 @@ class OrderDetail
         $this->quantity = $quantity;
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->id;
     }
 
     public function getProducts(): ?Product
@@ -71,4 +67,26 @@ class OrderDetail
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Check if the Order corresponds to Order given as an argument
+     */
+    public function checkOrder(OrderDetail $orderDetail)
+    {
+        return $this->getProducts()->getId() === $orderDetail->getProducts()->getId();
+    }
+
+    /**
+     * Calculate total price for selected quantity of products
+     */
+    public function countTotal(): float
+    {
+        return $this->getProducts()->getPrice() * $this->getQuantity();
+    }
+
 }

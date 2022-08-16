@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,32 +14,34 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class Order
 {
+    const STATUS ='cart';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column()]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50, unique:true)]
+    #[ORM\Column(length: 50, unique:true, nullable: true)]
     private ?string $number = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $users = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Delivery $deliveries = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column]
-    private ?float $total = null;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTime $updated_at = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    private ?string $status = self::STATUS;
 
-    #[ORM\OneToMany(mappedBy: 'orders', targetEntity: OrderDetail::class)]
+    #[ORM\OneToMany(mappedBy: 'orders', targetEntity: OrderDetail::class, cascade: ["persist", "remove"])]
     private Collection $orderDetails;
 
     public function __construct()
@@ -87,14 +91,14 @@ class Order
         return $this;
     }
 
-    public function getTotal(): ?float
+    public function getUpdatedAt(): \DateTime
     {
-        return $this->total;
+        return $this->updated_at;
     }
 
-    public function setTotal(float $total): self
+    public function setUpdatedAt(\DateTime $update_at): self
     {
-        $this->total = $total;
+        $this->updated_at = $update_at;
 
         return $this;
     }
@@ -133,10 +137,16 @@ class Order
 
     public function addOrderDetail(OrderDetail $orderDetail): self
     {
-        if (!$this->orderDetails->contains($orderDetail)) {
+        foreach ($this->getOrderDetails() as $existingOrderDetail) {
+            if($existingOrderDetail->checkOrder($orderDetail)) {
+                $existingOrderDetail->setQuantity($existingOrderDetail->getQuantity()+ $orderDetail->getQuantity());
+                return $this;
+            }
+        }
+        // if (!$this->orderDetails->contains($orderDetail)) {
             $this->orderDetails[] = $orderDetail;
             $orderDetail->setOrders($this);
-        }
+        // }
 
         return $this;
     }
@@ -152,6 +162,20 @@ class Order
 
         return $this;
     }
+
+    /**
+     * Calculate total price for cart
+     */
+    public function countTotal(): float
+    {
+        $total=0;
+
+        foreach($this->getOrderDetails() as $orderDetail) {
+            $total += $orderDetail->countTotal();
+        }
+        return $total;
+    }
+
 
     public function __toString()
     {

@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
 use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\ProductRepository;
+use App\Feature\Cart\CartManager;
 
 class ProductController extends AbstractController
 {
@@ -85,5 +85,6 @@ class ProductController extends AbstractController
             'products' => $paginate
         ]);
     }
+
 
 }
