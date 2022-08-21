@@ -1,6 +1,67 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    Koszyk
-    
+
+{% if cart.orderDetails.count > 0 %}
+    {{ form_start(form_cart)}}
+
+    <div class="card">
+        <div class="card-header">
+            <div class="row no-gutters">
+                <div class="col-md-8">
+                    <h2>Twój koszyk</h2>
+                </div>
+            <div class="col-md-4">
+                Wartość koszyka: {{cart.countTotal}} zł
+            </div>
+        </div>
+        <div>
+                {{ form_widget(form_cart.remove, {label: 'Opróżnij koszyk', 'attr': {'class': 'btn btn-secondary'}}) }}
+                {{ form_widget(form_cart.proceed, {label: 'Dostawa i płatność', 'attr': {'class': 'btn btn-success'}}) }}
+        </div>
+
+            {% for order in form_cart.orderDetails %}
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img class="img-fluid" src="{{ asset('build/images/' ~ order.vars.data.products.getImagesFileName) }}"></img>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ order.vars.data.products.name }}</h5>
+                                <p class="card-text">{{ order.vars.data.products.content[:50] }}...</p>
+                                <p class="card-text"><small class="text-muted">W magazynie: {{order.vars.data.products.getQuantity}}</small></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ order.vars.data.products.price }} zł</h5>
+                            </div>
+                            <p class="card-title"> Ilość: {{ form_widget(order.quantity, {
+                                        'attr': {
+                                            'class': 'form-control form-control-sm ' ~ (order.quantity.vars.valid ? '' : 'is-invalid')
+                                        }
+                                    }) }}</p>
+                            <div class="invalid-feedback">
+                                {{ form_errors(order.quantity) }}
+                            </div>
+                            <div "card-text">
+                                {{ form_widget(order.remove, {label: 'Usuń','attr': {'class': 'btn btn-dark btn-sm'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+    </div>
+    {{ form_end(form_cart)}}
+
+{% else %}
+    <h5>Twój koszyk jest pusty</h5>
+    <a href = {{path('app_product_top_list')}}>Sprawdź najchętniej kupowane produkty</a>
+
+{% endif %}
+
+
 {% endblock %}
