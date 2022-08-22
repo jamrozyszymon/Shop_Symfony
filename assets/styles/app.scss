@@ -12,7 +12,6 @@ header {
     color: #fff;
     display: flex;
     border-bottom: 3px solid rgb(1, 24, 7);
-    
 }
 
 .header_main {
@@ -34,13 +33,16 @@ header {
     float: right;
     width: 50%;
     display: flex;
-    text-decoration: none;
 }
 
 .nav-item {
     padding-right: 5px;
     list-style-type: none;
     display: inline-block;
+}
+
+.nav-link {
+    color: rgb(77, 74, 74);
 }
 
 .main_title {
@@ -61,6 +63,11 @@ nav {
     width: 15%;
     min-height: calc(100vh - 50px - 35px);
     border-right: 1px solid grey;
+}
+
+nav ul li ul li a{
+    text-decoration: none;
+    color: rgb(73, 72, 72);
 }
 
 //main {

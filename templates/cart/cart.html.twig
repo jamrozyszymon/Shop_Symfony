@@ -3,7 +3,7 @@
 {% block body %}
 
 {% if cart.orderDetails.count > 0 %}
-    {{ form_start(form_cart)}}
+    {{ form_start(form)}}
 
     <div class="card">
         <div class="card-header">
@@ -16,20 +16,24 @@
             </div>
         </div>
         <div>
-                {{ form_widget(form_cart.remove, {label: 'Opróżnij koszyk', 'attr': {'class': 'btn btn-secondary'}}) }}
-                {{ form_widget(form_cart.proceed, {label: 'Dostawa i płatność', 'attr': {'class': 'btn btn-success'}}) }}
+                {{ form_widget(form.delete, {label: 'Opróżnij koszyk', 'attr': {'class': 'btn btn-secondary'}}) }}
+                {{ form_widget(form.proceed, {label: 'Dostawa i płatność', 'attr': {'class': 'btn btn-success'}}) }}
         </div>
 
-            {% for order in form_cart.orderDetails %}
+            {% for order in form.orderDetails %}
                 <div class="card mb-3">
                     <div class="row no-gutters">
                         <div class="col-md-4">
-                            <img class="img-fluid" src="{{ asset('build/images/' ~ order.vars.data.products.getImagesFileName) }}"></img>
+                            <a href ="{{path('app_product_detail',{'productname': order.vars.data.products.name|lower,'id':order.vars.data.products.id })}}">
+                                <img class="img-fluid" src="{{ asset('build/images/' ~ order.vars.data.products.getImagesFileName) }}"></img>
+                            </a>
                         </div>
 
                         <div class="col-md-5">
                             <div class="card-body">
-                                <h5 class="card-title">{{ order.vars.data.products.name }}</h5>
+                                <a href ="{{path('app_product_detail',{'productname': order.vars.data.products.name|lower,'id':order.vars.data.products.id })}}" class="text-reset text-decoration-none">
+                                    <h5 class="card-title">{{ order.vars.data.products.name }}</h5>
+                                </a>
                                 <p class="card-text">{{ order.vars.data.products.content[:50] }}...</p>
                                 <p class="card-text"><small class="text-muted">W magazynie: {{order.vars.data.products.getQuantity}}</small></p>
                             </div>
@@ -55,7 +59,7 @@
             {% endfor %}
 
     </div>
-    {{ form_end(form_cart)}}
+    {{ form_end(form)}}
 
 {% else %}
     <h5>Twój koszyk jest pusty</h5>

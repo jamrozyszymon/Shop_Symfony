@@ -61,7 +61,7 @@ class DashboardController extends AbstractDashboardController
 
             MenuItem::section('Zamówienia'),
             MenuItem::linkToCrud('Zamówienia', 'fa fa-tags', Order::class),
-            MenuItem::linkToCrud('Zamówienia Szczegóły', 'fa fa-tags', OrderDetail::class),
+            MenuItem::linkToCrud('Zamówienia - Produkty', 'fa fa-tags', OrderDetail::class),
 
             MenuItem::section('Produkty'),
             MenuItem::linkToCrud('Kategorie', 'fa fa-tags', ProductCategory::class),

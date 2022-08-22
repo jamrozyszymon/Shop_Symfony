@@ -41,7 +41,7 @@ class Order
     #[ORM\Column(length: 255)]
     private ?string $status = self::STATUS;
 
-    #[ORM\OneToMany(mappedBy: 'orders', targetEntity: OrderDetail::class, cascade: ["persist", "remove"])]
+    #[ORM\OneToMany(mappedBy: 'orders', targetEntity: OrderDetail::class, cascade: ["persist", "remove"], orphanRemoval:true)]
     private Collection $orderDetails;
 
     public function __construct()
@@ -174,6 +174,17 @@ class Order
             $total += $orderDetail->countTotal();
         }
         return $total;
+    }
+
+    /**
+     * Remove all products from cart
+     */
+    public function removeAllOrderDetail(): self
+    {
+        foreach($this->getOrderDetails() as $allOrderDetails) {
+            $this->removeOrderDetail($allOrderDetails);
+        }
+        return $this;
     }
 
 

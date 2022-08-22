@@ -24,11 +24,14 @@
                                 <a class="href_non_dec" href="{{path('home')}}">Opinie (10)</a>
                             </div>
                         </div> 
+                        <p>{{product.content}}</p>
                         <i class="fa fa-thumbs-up">W magazynie: <small class="text-muted">{{product.getQuantity}}</small></i>&nbsp;
                         <div>     
                             {{ form_start(addProductForm)}}
                                 Ilość
-                                {{ form_widget(addProductForm.quantity, {attr: {value: 1}}) }}
+                                {{ form_widget(addProductForm.quantity, 
+                                    {attr: {value: 1}}
+                                    ) }}
 
                                 <button title="Dodaj do koszyka" class="btn btn-secondary" type="submit">Dodaj do koszyka 
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">

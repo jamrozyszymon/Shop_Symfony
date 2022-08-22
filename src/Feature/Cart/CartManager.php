@@ -27,6 +27,7 @@ class CartManager
         return $cart;
     }
 
+
     /**
      * Save cart in DB and Session
      */
