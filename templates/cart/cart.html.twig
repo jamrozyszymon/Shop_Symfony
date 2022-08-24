@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <h1> Koszyk </h1>
 
 {% if cart.orderDetails.count > 0 %}
     {{ form_start(form)}}
@@ -62,8 +63,10 @@
     {{ form_end(form)}}
 
 {% else %}
-    <h5>Twój koszyk jest pusty</h5>
-    <a href = {{path('app_product_top_list')}}>Sprawdź najchętniej kupowane produkty</a>
+    <div class="empty-cart">
+        <h5>Twój koszyk jest pusty</h5>
+        <a href = {{path('app_product_top_list')}}>Sprawdź najchętniej kupowane produkty</a>
+    </div>
 
 {% endif %}
 

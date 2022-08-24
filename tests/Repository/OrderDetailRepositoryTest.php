@@ -38,7 +38,7 @@ class OrderDetailRepositoryTest extends KernelTestCase
             ->findTopSalesProducts(2,6);
 
         $this->assertIsArray($topProducts);
-        $this->assertCount(4, $topProducts);
+        $this->assertCount(2, $topProducts);
         $this->assertSame(
             array(
                 "products_id" => 2,

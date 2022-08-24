@@ -164,6 +164,17 @@ class Order
     }
 
     /**
+     * Remove all products from cart
+     */
+    public function removeAllOrderDetail(): self
+    {
+        foreach($this->getOrderDetails() as $allOrderDetails) {
+            $this->removeOrderDetail($allOrderDetails);
+        }
+        return $this;
+    }
+
+    /**
      * Calculate total price for cart
      */
     public function countTotal(): float
@@ -175,18 +186,6 @@ class Order
         }
         return $total;
     }
-
-    /**
-     * Remove all products from cart
-     */
-    public function removeAllOrderDetail(): self
-    {
-        foreach($this->getOrderDetails() as $allOrderDetails) {
-            $this->removeOrderDetail($allOrderDetails);
-        }
-        return $this;
-    }
-
 
     public function __toString()
     {
