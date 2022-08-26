@@ -1,16 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1> Koszyk </h1>
 
 {% if cart.orderDetails.count > 0 %}
     {{ form_start(form)}}
 
-    <div class="card">
+    <div class="card mt-4 mt-5">
         <div class="card-header">
             <div class="row no-gutters">
-                <div class="col-md-8">
-                    <h2>Twój koszyk</h2>
+                <div class="col-md-8 mb-5">
+                    <h1>Twój koszyk</h1>
                 </div>
             <div class="col-md-4">
                 Wartość koszyka: {{cart.countTotal}} zł
@@ -22,7 +21,7 @@
         </div>
 
             {% for order in form.orderDetails %}
-                <div class="card mb-3">
+                <div class="card mb-3 mt-5">
                     <div class="row no-gutters">
                         <div class="col-md-4">
                             <a href ="{{path('app_product_detail',{'productname': order.vars.data.products.name|lower,'id':order.vars.data.products.id })}}">

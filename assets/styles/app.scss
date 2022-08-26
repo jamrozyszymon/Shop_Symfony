@@ -1,105 +1,52 @@
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
-body {
-    position: relative;
-    min-height: 100vh;
-}
+
 //header
-header {
-    padding: 4px 10px 4px 10px;
-    height: 60px;
-    background-color: rgb(99, 163, 114);
-    color: #fff;
-    display: flex;
-    border-bottom: 3px solid rgb(1, 24, 7);
+.navbar.navbar-expand-lg {
+    border-bottom: 3px solid rgb(89, 61, 116);
 }
 
-.header_main {
-    float: left;
-    width: 20%;
-    display:flex;
-    text-decoration: none;
+.navbar-brand {
     font-size: 35px;
     font-weight: 500;
     text-align: center;
+    color: rgb(89, 61, 116);
+    margin-right: 30px;
 }
 
-.header_search {
-    float: left;
-    width: 30%;
-}
-
-.header_nav {
-    float: right;
-    width: 50%;
-    display: flex;
-}
-
-.nav-item {
-    padding-right: 5px;
-    list-style-type: none;
-    display: inline-block;
+.input-group.rounded {
+    color: rgb(77, 74, 74);
 }
 
 .nav-link {
     color: rgb(77, 74, 74);
-}
-
-.main_title {
-    text-decoration: none;
-}
-
-
-
-.container {
-    display:flex;
-    flex-wrap: wrap;
+    font-weight: 500;
 }
 
 //nav
-nav {
-    flex: 1;
-    padding-top: 30px;
-    width: 15%;
-    min-height: calc(100vh - 50px - 35px);
-    border-right: 1px solid grey;
+.col-sm-12.col-md-2.pt-4 ul li {
+    list-style-type: none;
+    text-indent: -3rem;
 }
 
-nav ul li ul li a{
+.col-sm-12.col-md-2.pt-4 ul li ul li {
+    list-style-type: none;
+    text-indent: -4rem;
+}
+
+.col-sm-12.col-md-2.pt-4 ul li ul li a{
     text-decoration: none;
     color: rgb(73, 72, 72);
 }
 
-//main {
-main {
-    margin: 20px;
-    flex:5;
-    min-height: calc(100vh - 50px - 35px);
-    display:flex;
-
-}
-
-article {
-    float:left;
-    width: 85%;
-
-}
-
+//aside
 aside {
-    float:left;
-    width:15%;
-
-}
-
-
-.nav.flex-column {
-    width: 25%;
+    text-align: justify;
 }
 
 
 //footer
 footer {
-    clear:both;
     height: 50px;
     background-color: rgb(99, 163, 114);
     color: #fff;
@@ -107,6 +54,7 @@ footer {
     padding: 10px;
     border-top: 3px solid rgb(1, 24, 7);
     width: 100%;
+
 }
 
 

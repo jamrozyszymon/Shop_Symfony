@@ -9,15 +9,15 @@
             {% else %}
                 <h2>Wyniki dla wyszukiwania: "{{app.request.query.get('searchby')}}"</h2>
             {% endif %}
-        </div>        
+               
     {% else %}
         <div class ="product-list-nav-title">
             <h2>{{ app.request.get('categoryname')|capitalize|replace({'-': ' ',}) }}</h2>
         </div>
-    {% endif %}
+    
             <div class ="product-list-nav-sort">
                 <form id="from-sort" action="" method="GET">
-                    <select name="sortby" class="form-select-color:red" onchange='this.form.submit();'>
+                    <select name="sortby" class="form-select" onchange='this.form.submit();'>
                         <option selected>Sortowanie</option>
                         {# <option value="rating">Najwyżej oceniane</option> #}
                         <option value="title">Alfabetycznie</option>
@@ -28,5 +28,6 @@
                         <input type="hidden" name="query" value="{{query}}">
                     {% endif %}
                 </form>
-            </div>            
+            </div>
+    {% endif %}         
 {% endblock %}
