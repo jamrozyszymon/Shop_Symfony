@@ -1,25 +1,28 @@
 @import "~bootstrap/scss/bootstrap";
 
+$main-color: rgb(89, 61, 116);
+$background-main-color: rgb(99, 163, 114);
+$text-main-color: rgb(77, 74, 74);
 
 //header
 .navbar.navbar-expand-lg {
-    border-bottom: 3px solid rgb(89, 61, 116);
+    border-bottom: 3px solid $main-color;
 }
 
 .navbar-brand {
     font-size: 35px;
     font-weight: 500;
     text-align: center;
-    color: rgb(89, 61, 116);
+    color: $main-color;
     margin-right: 30px;
 }
 
 .input-group.rounded {
-    color: rgb(77, 74, 74);
+    color: $text-main-color;
 }
 
 .nav-link {
-    color: rgb(77, 74, 74);
+    color: $text-main-color;
     font-weight: 500;
 }
 
@@ -27,16 +30,16 @@
 .col-sm-12.col-md-2.pt-4 ul li {
     list-style-type: none;
     text-indent: -3rem;
-}
 
-.col-sm-12.col-md-2.pt-4 ul li ul li {
-    list-style-type: none;
-    text-indent: -4rem;
-}
+    ul li {
+        list-style-type: none;
+        text-indent: -4rem;
 
-.col-sm-12.col-md-2.pt-4 ul li ul li a{
-    text-decoration: none;
-    color: rgb(73, 72, 72);
+        a {
+            text-decoration: none;
+            color: rgb(73, 72, 72);
+        }
+    }
 }
 
 //aside
@@ -48,11 +51,11 @@ aside {
 //footer
 footer {
     height: 50px;
-    background-color: rgb(99, 163, 114);
+    background-color: $background-main-color;
     color: #fff;
     text-align: center;
     padding: 10px;
-    border-top: 3px solid rgb(1, 24, 7);
+    border-top: 3px solid black;
     width: 100%;
 
 }
