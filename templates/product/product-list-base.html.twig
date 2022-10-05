@@ -14,7 +14,7 @@
                     <div class="card mb-4 shadow-sm">
                         <div align="center" class="embed-responsive embed-responsive-16by9">
                             <a href ="{{path('app_product_detail',{'productname': product.name|lower,'id':product.id })}}">
-                                <img class="img-fluid" src="{{ asset('build/images/' ~ product.getImagesFileName) }}"></img>
+                                <img class="img-fluid" src="{{asset('build/images/' ~ product.getImagesFileName)}}"></img>
                             </a>
                         </div>
                         <div class="card-body">

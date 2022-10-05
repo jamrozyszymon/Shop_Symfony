@@ -13,7 +13,7 @@ class OrderFactory
         $order = new Order();
         $order
             ->setStatus(Order::STATUS)
-            ->setCreatedAt(new \DateTimeImmutable())
+            ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime());
         return $order;
     }

@@ -17,8 +17,8 @@ class OrderDetail
     #[ORM\Column]
     #[Assert\NotBlank()]
     #[Assert\GreaterThanOrEqual(1)]
-    private ?int $quantity = null;
-
+    private int $quantity;
+    
     #[ORM\ManyToOne(inversedBy: 'orderDetails')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $products = null;

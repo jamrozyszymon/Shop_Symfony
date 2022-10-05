@@ -13,4 +13,4 @@ import './bootstrap';
 
 import 'bootstrap';
 
-import './js/quantity';
+import './js/quantity.js';

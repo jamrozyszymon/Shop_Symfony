@@ -6,7 +6,9 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-/var/
+/var/cache/
+/var/log/
+/var/data_test.db
 /vendor/
 ###< symfony/framework-bundle ###
 ###> symfony/phpunit-bridge ###
@@ -20,10 +22,7 @@
 .phpunit.xml.dist
 ###< phpunit/phpunit ###
 
-/assets/images
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
-/public/build/
 npm-debug.log
-yarn-error.log
 ###< symfony/webpack-encore-bundle ###

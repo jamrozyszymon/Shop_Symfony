@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Order;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,6 +18,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class OrderRepository extends ServiceEntityRepository
 {
+    private const DAYS_BEFORE_REMOVE = 120;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Order::class);
@@ -39,28 +43,23 @@ class OrderRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Order[] Returns an array of Order objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('o.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    private function getOrderToRemove(): ORMQueryBuilder
+    {
+        return $this->createQueryBuilder('o')
+            -> where('o.created_at < :date')
+            ->setParameter(
+                'date', new \DateTime(-self::DAYS_BEFORE_REMOVE.' days')
+            );
+    }
 
-//    public function findOneBySomeField($value): ?Order
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function deleteOrderToRemove()
+    {
+        return $this->getOrderToRemove()->delete()->getQuery() ->execute();
+    }
+
+    public function countOrderToRemove(): int
+    {
+        return $this->getOrderToRemove()->select('COUNT(o.id)')->getQuery()->getSingleScalarResult();
+    }
+
 }

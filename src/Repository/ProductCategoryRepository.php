@@ -39,28 +39,18 @@ class ProductCategoryRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return ProductCategory[] Returns an array of ProductCategory objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * Find categories for nested list of categories
+     */
+    public function findAllCategories()
+    {
+        $conn = $this->getEntityManager()->getConnection();
 
-//    public function findOneBySomeField($value): ?ProductCategory
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $sql = 'SELECT id, name, parent_id FROM product_category';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+    
+        return $resultSet->fetchAllAssociative();
+    }
+
 }

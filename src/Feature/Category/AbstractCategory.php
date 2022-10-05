@@ -3,23 +3,22 @@
 namespace App\Feature\Category;
 
 use App\Entity\ProductCategory;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
-abstract class AbstractCategory extends ServiceEntityRepository
+/**
+ * Get all ProductCategory. Create Array. Singleton
+ */
+abstract class AbstractCategory
 {
     protected static $connect;
     public $allCategories;
     public $categoryList;
 
     public function __construct(
-        protected EntityManagerInterface $entityManager,
-        protected ManagerRegistry $registry,
+        protected ManagerRegistry $doctrine,
         public UrlGeneratorInterface $urlGenerator,)
     {
-        parent::__construct($registry, ProductCategory::class);
         $this->allCategories = $this->getCategories();
     }
 
@@ -49,15 +48,9 @@ abstract class AbstractCategory extends ServiceEntityRepository
         if(self::$connect) {
             return self::$connect;
         } else {
-            
-            $conn = $this->getEntityManager()->getConnection();
-
-            $sql = 'SELECT * FROM product_category';
-            $stmt = $conn->prepare($sql);
-            $resultSet = $stmt->executeQuery();
-
-        // returns an array of arrays (i.e. a raw data set)
-            return self::$connect =$resultSet->fetchAllAssociative();
+            $categories = $this->doctrine->getRepository(ProductCategory::class)
+            ->findAllCategories();
+            return self::$connect=$categories;
         }
     }
 }

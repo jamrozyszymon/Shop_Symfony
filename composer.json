@@ -7,15 +7,18 @@
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-intl": "*",
+        "ext-pdo_sqlite": "*",
+        "doctrine/annotations": "^1.13",
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.12",
         "easycorp/easyadmin-bundle": "^4.3",
         "knplabs/knp-paginator-bundle": "^5.8",
         "sensio/framework-extra-bundle": "^6.2",
+        "symfony/apache-pack": "^1.0",
         "symfony/console": "6.1.*",
         "symfony/dom-crawler": "6.1.*",
-        "symfony/dotenv": "6.1.*",
         "symfony/event-dispatcher": "6.1.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "6.1.*",
@@ -24,6 +27,7 @@
         "symfony/runtime": "6.1.*",
         "symfony/security-bundle": "6.1.*",
         "symfony/twig-bundle": "6.1.*",
+        "symfony/validator": "6.1.*",
         "symfony/webpack-encore-bundle": "^1.15",
         "symfony/yaml": "6.1.*",
         "twig/extra-bundle": "^2.12|^3.0",
@@ -91,6 +95,7 @@
         "symfony/phpunit-bridge": "^6.1",
         "symfony/stopwatch": "6.1.*",
         "symfony/var-dumper": "6.1.*",
-        "symfony/web-profiler-bundle": "6.1.*"
+        "symfony/web-profiler-bundle": "6.1.*",
+        "symfony/dotenv": "6.1.*"
     }
 }

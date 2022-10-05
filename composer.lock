@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7dca3530176a04273fb0c51db44f5fa3",
+    "content-hash": "fe5eb130a2bf5e4d1b5069c0a5225656",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2120,6 +2120,32 @@
             "time": "2022-09-05T16:44:56+00:00"
         },
         {
+            "name": "symfony/apache-pack",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/apache-pack.git",
+                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/apache-pack/zipball/3aa5818d73ad2551281fc58a75afd9ca82622e6c",
+                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c",
+                "shasum": ""
+            },
+            "type": "symfony-pack",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A pack for Apache support in Symfony",
+            "support": {
+                "issues": "https://github.com/symfony/apache-pack/issues",
+                "source": "https://github.com/symfony/apache-pack/tree/master"
+            },
+            "time": "2017-12-12T01:46:35+00:00"
+        },
+        {
             "name": "symfony/asset",
             "version": "v6.1.5",
             "source": {
@@ -2877,79 +2903,6 @@
                 }
             ],
             "time": "2022-08-04T19:19:00+00:00"
-        },
-        {
-            "name": "symfony/dotenv",
-            "version": "v6.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/dotenv.git",
-                "reference": "568c11bcedf419e7e61f663912c3547b54de51df"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dotenv/zipball/568c11bcedf419e7e61f663912c3547b54de51df",
-                "reference": "568c11bcedf419e7e61f663912c3547b54de51df",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1"
-            },
-            "conflict": {
-                "symfony/console": "<5.4"
-            },
-            "require-dev": {
-                "symfony/console": "^5.4|^6.0",
-                "symfony/process": "^5.4|^6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Dotenv\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Registers environment variables from a .env file",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "dotenv",
-                "env",
-                "environment"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/dotenv/tree/v6.1.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2022-04-01T07:15:35+00:00"
         },
         {
             "name": "symfony/error-handler",
@@ -6054,16 +6007,16 @@
         },
         {
             "name": "symfony/validator",
-            "version": "v6.1.5",
+            "version": "v6.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/validator.git",
-                "reference": "7d7724f550e0f657a591831a7c31e25678ff8779"
+                "reference": "0cc147f2e4a0d78221db85545751cd8764bbc156"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/validator/zipball/7d7724f550e0f657a591831a7c31e25678ff8779",
-                "reference": "7d7724f550e0f657a591831a7c31e25678ff8779",
+                "url": "https://api.github.com/repos/symfony/validator/zipball/0cc147f2e4a0d78221db85545751cd8764bbc156",
+                "reference": "0cc147f2e4a0d78221db85545751cd8764bbc156",
                 "shasum": ""
             },
             "require": {
@@ -6142,7 +6095,7 @@
             "description": "Provides tools to validate values",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/validator/tree/v6.1.5"
+                "source": "https://github.com/symfony/validator/tree/v6.1.7"
             },
             "funding": [
                 {
@@ -6158,7 +6111,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-09-17T07:55:45+00:00"
+            "time": "2022-10-28T16:23:08+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -8603,6 +8556,79 @@
             "time": "2022-06-27T17:24:16+00:00"
         },
         {
+            "name": "symfony/dotenv",
+            "version": "v6.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dotenv.git",
+                "reference": "568c11bcedf419e7e61f663912c3547b54de51df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dotenv/zipball/568c11bcedf419e7e61f663912c3547b54de51df",
+                "reference": "568c11bcedf419e7e61f663912c3547b54de51df",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "conflict": {
+                "symfony/console": "<5.4"
+            },
+            "require-dev": {
+                "symfony/console": "^5.4|^6.0",
+                "symfony/process": "^5.4|^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Dotenv\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Registers environment variables from a .env file",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "dotenv",
+                "env",
+                "environment"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/dotenv/tree/v6.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-04-01T07:15:35+00:00"
+        },
+        {
             "name": "symfony/maker-bundle",
             "version": "v1.47.0",
             "source": {
@@ -8915,7 +8941,9 @@
     "platform": {
         "php": ">=8.1",
         "ext-ctype": "*",
-        "ext-iconv": "*"
+        "ext-iconv": "*",
+        "ext-intl": "*",
+        "ext-pdo_sqlite": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.2.0"

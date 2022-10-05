@@ -21,7 +21,6 @@ class ProductDetailController extends AbstractController
         $products = $doctrine->getRepository(Product::class)
         ->findOneBy(['id'=>$id]);
 
-        //check is Users login
         if($this->getUser()) {
             $user = new User();
             $user=$this->getUser();
@@ -49,7 +48,7 @@ class ProductDetailController extends AbstractController
 
         return $this->render('product/product-detail.html.twig', [
             'product' =>$products,
-            'addProductForm' =>$form->createView(),
+            'addProductForm' =>$form->createView()
         ]);
     }
 }

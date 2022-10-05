@@ -24,7 +24,6 @@
 
 var quantity=$("#add_to_cart_form_quantity");
 console.log(quantity);
-
 var n=1;
 
 $("#add_to_cart_form_plus").on('click', function(){
