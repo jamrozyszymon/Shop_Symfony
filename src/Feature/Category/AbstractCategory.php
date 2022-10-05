@@ -2,7 +2,7 @@
 
 namespace App\Feature\Category;
 
-use App\Entity\Category;
+use App\Entity\ProductCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -19,7 +19,7 @@ abstract class AbstractCategory extends ServiceEntityRepository
         protected ManagerRegistry $registry,
         public UrlGeneratorInterface $urlGenerator,)
     {
-        parent::__construct($registry, Category::class);
+        parent::__construct($registry, ProductCategory::class);
         $this->allCategories = $this->getCategories();
     }
 

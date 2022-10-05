@@ -27,7 +27,7 @@ $text-main-color: rgb(77, 74, 74);
 }
 
 //nav
-.col-sm-12.col-md-2.pt-4 ul li {
+.col-sm-12.col-md-2.py-5 ul li {
     list-style-type: none;
     text-indent: -3rem;
 
@@ -37,9 +37,14 @@ $text-main-color: rgb(77, 74, 74);
 
         a {
             text-decoration: none;
-            color: rgb(73, 72, 72);
+            color: rgb(117, 117, 117);
         }
     }
+}
+
+//base
+article {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 //aside

@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Logowanie{% endblock %}
-
 {% block body %}
+
+<div class="my-5">
+<h1>Logowanie</h1>
+
 <form class="px-4 py-3" method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -14,15 +16,13 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Logowanie</h1>
     <label for="inputEmail">E-mail</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
     <label for="inputPassword">Hasło</label>
     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
     <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+           value="{{ csrf_token('authenticate') }}">
 
         <div class="checkbox mb-3">
             <label>
@@ -30,12 +30,12 @@
             </label>
         </div>
 
-    <button class="btn btn-lg btn-primary" type="submit">
+    <button class="btn btn-secondary" type="submit">
         Zaloguj
     </button>
 </form>
-<div>
-    <h3>Nie posiadasz konta</h3>
+<div class="pt-4 border-top">
+    <h3>Nie posiadasz konta?</h3>
     <a href= "{{path('app_register')}}">Zarejestruj się</a>
 </div>
 {% endblock %}

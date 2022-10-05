@@ -7,21 +7,13 @@ use App\Tests\Controller\CartSimulateProduct;
 
 class CartControllerTest extends WebTestCase
 {
-    public function testIsCartOpen(): void
-    {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/cart');
-
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Koszyk');
-    }
 
     public function testIsEmptyCartDisplayCorrect(): void
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/cart');
 
-        $text= $crawler->filter('body > div.container > main > article > div > h5')
+        $text= $crawler->filter('body > div.container > div > main > div > article > div > div > div > div > h1')
             ->getNode(0)
             ->textContent;
         
@@ -36,7 +28,7 @@ class CartControllerTest extends WebTestCase
         $product = $cartSimulateProduct->addProduct($client);
         $crawler = $client->request('GET', '/cart');
 
-        $header= $crawler->filter('body > div.container > main > article > form > div > div > div.row.no-gutters > div.col-md-8 > h2')
+        $header= $crawler->filter('body > div.container > div > main > div > article > form > div > div > div.row.no-gutters.mb-3 > div.col-md-8.mt-3 > h1')
             ->getNode(0)
             ->textContent;
         
@@ -44,8 +36,9 @@ class CartControllerTest extends WebTestCase
             ->getNode(0)
             ->textContent;
         
-        $amountDisplayProducts= $crawler->filter('body > div.container > main > article > form > div > div > div:nth-child(3)')
-            ->count();
+        $amountDisplayProducts= $crawler->filter('body > div.container > div > main > div > article > form > div > div > div.list')
+            ->children()
+            ->count();      
 
         $this->assertResponseIsSuccessful();
         $this->assertStringContainsString('Twój koszyk', $header);
@@ -63,15 +56,15 @@ class CartControllerTest extends WebTestCase
         $product = $cartSimulateProduct->addProduct($client);
         $crawler = $client->request('GET', '/cart');
 
-        $amountProductBeforeDelete= $crawler->filter('body > div.container > main > article > form > div > div > div:nth-child(3)')
+        $amountProductBeforeDelete= $crawler->filter('body > div.container > div > main > div > article > form > div > div > div.list')
         ->count();
 
         $crawler=$client->submitForm('Usuń');
         $crawler = $client->followRedirect();
 
-        $amountProductAfterDelete= $crawler->filter('body > div.container > main > article > form > div > div > div:nth-child(3)')
+        $amountProductAfterDelete= $crawler->filter('body > div.container > div > main > div > article > form > div > div > div.list')
         ->count();
-
+        
         $this->assertGreaterThan($amountProductAfterDelete, $amountProductBeforeDelete);
     }
 
@@ -87,7 +80,7 @@ class CartControllerTest extends WebTestCase
         $crawler=$client->submitForm('Opróżnij koszyk');
         $crawler = $client->followRedirect();
 
-        $text= $crawler->filter('body > div.container > main > article > div > h5')
+        $text= $crawler->filter('body > div.container > div > main > div > article > div > div > div > div > h1')
         ->getNode(0)
         ->textContent;
     

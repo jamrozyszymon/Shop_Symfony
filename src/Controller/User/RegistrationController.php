@@ -51,4 +51,10 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
+    #[Route('/terms', name: 'app_terms')]
+    public function acceptTerms()
+    {
+        return $this->render('registration/terms.html.twig');
+    }
 }

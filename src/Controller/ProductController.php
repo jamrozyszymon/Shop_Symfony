@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
 use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Feature\Cart\CartManager;
 
 class ProductController extends AbstractController
 {
@@ -29,23 +28,6 @@ class ProductController extends AbstractController
         ]);
     }
     
-
-    // #[Route('/product-list/category/{categoryname},{id}', name: 'app_product_list')]
-    // public function productList(ManagerRegistry $doctrine, int $id, PaginatorInterface $paginator, Request $request): Response
-    // {
-    //     $products = $doctrine->getRepository(Product::class)->findBy(['categories' => $id]);
-
-    //     $paginate = $paginator->paginate(
-    //         $products,
-    //         $request->query->getInt('page',1), 12
-    //     );
-
-    //     return $this->render('product/product-list.html.twig',[
-    //         'paginations' => $paginate
-    //     ]);
-    // }
-
-
     /**
      * display searching products
      */
@@ -64,27 +46,17 @@ class ProductController extends AbstractController
      * display top sales products
      */
     #[Route('/product-top-list', name: 'app_product_top_list')]
-    public function productTopList(EntityManagerInterface $entityManager, ManagerRegistry $doctrine, PaginatorInterface $paginator, Request $request): Response
+    public function productTopList(EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-
-        //list of products with highest sales
         $repository = $entityManager->getRepository(OrderDetail::class);
-        $listProducts=$repository->findTopSalesProducts(2,6);
+        $listProducts=$repository->findTopSalesProducts(100,12);
         $key = array_column($listProducts, 'products_id');
-
 
         $products = $doctrine->getRepository(Product::class)->findBy(array('id' =>$key));
 
-
-        $paginate = $paginator->paginate(
-            $products,
-            $request->query->getInt('page',1), 12
-        );
-
         return $this->render('product/product-top-list.html.twig',[
-            'products' => $paginate
+            'products' => $products,
         ]);
     }
-
 
 }

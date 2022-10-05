@@ -64,9 +64,11 @@ class ProductRepository extends ServiceEntityRepository
         {
             $qb->andWhere('p.name LIKE :val'.$key)
             ->setParameter('val'.$key, '%'.$value.'%');
+            
         }
 
         $qb->orderBy('p.name', 'ASC');
+
 
         $query = $qb->getQuery();
 

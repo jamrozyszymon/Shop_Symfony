@@ -45,14 +45,15 @@ Encore
     // enables hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
 
-    .configureBabel((config) => {
-        config.plugins.push('@babel/plugin-proposal-class-properties');
-    })
+    // configure Babel
+    // .configureBabel((config) => {
+    //     config.plugins.push('@babel/a-babel-plugin');
+    // })
 
-    // enables @babel/preset-env polyfills
+    // enables and configure @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
-        config.corejs = 3;
+        config.corejs = '3.23';
     })
 
     // enables Sass/SCSS support
@@ -69,13 +70,14 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    .autoProvidejQuery()
+    //.autoProvidejQuery()
 
     .copyFiles({
-        from: './assets/images',
+        from: './assets/images/',
         to: 'images/[path][name].[hash:8].[ext]',
-        pattern: /\.(png|jpg|jpeg)$/
+        pattern: /\.(png|jpg|jpeg|svg)$/
     })
+    
 ;
 
 module.exports = Encore.getWebpackConfig();

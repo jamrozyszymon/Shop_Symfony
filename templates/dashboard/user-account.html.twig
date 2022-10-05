@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="my-3">
+	<h1>
+		Panel Użytkownika
+	</h1>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-6">
+			Jesteś zalogowany jako:&nbsp<strong>{{app.user}}</strong>
+		</div>
+		<div class="col-6">
+			<a href="{{path('app_logout')}}">Wyloguj</a>
+		</div>
+
+		<div class="row mt-5">
+			<div class="col-6">
+				<a href="{{path('app_cart')}}">Twój koszyk</a>
+			</div>
+			<div class="col-6">
+			</div>
+		<div>
+	</div>
+</div>
+
+{% endblock %}

@@ -44,7 +44,7 @@ class Product
     #[ORM\Column]
     private ?int $quantity = null;
 
-    #[ORM\Column(length: 255, unique:true)]
+    #[ORM\Column(length: 255)]
     private ?string $imagesFileName = null;
 
     #[ORM\OneToMany(mappedBy: 'products', targetEntity: OrderDetail::class)]

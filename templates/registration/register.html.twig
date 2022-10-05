@@ -3,6 +3,7 @@
 {% block title %}Rejestracja{% endblock %}
 
 {% block body %}
+    <div class="my-5">
     <h1>Rejestracja</h1>
 
     {{ form_start(registrationForm) }}
@@ -22,13 +23,16 @@
             label: 'Powtórz hasło'
         }) }}
         {{ form_row(registrationForm.agreeTerms, {
-             label: 'Zapoznałem się z regulaminem'
+             label: 'Zapoznałem się z <a target="_blank" href="'~path('app_terms')~'">regulaminem</a>.'
         }) }}
 
-        <button type="submit" class="btn">Zarejestruj się</button>
+        <button type="submit" class="btn btn-secondary">Zarejestruj się</button>
     {{ form_end(registrationForm) }}
-    <div>
+    </div>
+
+    <div class="pt-4 border-top">
         <h3>Masz konto?</h3>
         <a href= "{{path('app_login')}}">Zaloguj się</a>
     </div>
+
 {% endblock %}

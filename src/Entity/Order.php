@@ -33,7 +33,7 @@ class Order
     private ?Delivery $deliveries = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
+    private ?\DateTime $created_at;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTime $updated_at = null;
@@ -78,16 +78,28 @@ class Order
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->created_at;
     }
 
+    /**
+     * With possibilities to override data in DoctrineFixtrure
+     */
     #[ORM\PrePersist]
-    public function setCreatedAt(): self
+    public function setCreatedAt()
     {
-        $this->created_at = new \DateTimeImmutable("now");
+        if(isset($this->created_at_fixture)){
+            $this->created_at = $this->created_at_fixture;
+        } else {
+        $this->created_at = new \DateTime("now");
+        return $this;
+        }
+    }
 
+    public function setCreatedAtFixture($created_at)
+    {
+        $this->created_at_fixture = $created_at;
         return $this;
     }
 

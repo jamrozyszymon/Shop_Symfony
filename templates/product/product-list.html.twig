@@ -30,4 +30,9 @@
                 </form>
             </div>
     {% endif %}         
-{% endblock %}
+    {% endblock %}
+    {% block pagination %}
+        <div>
+            {{ knp_pagination_render(products)}}
+        </div>
+    {% endblock %}

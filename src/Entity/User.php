@@ -21,6 +21,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\Email(
+        message: 'Email: {{ value }} nie jest poprawny.',
+    )]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 

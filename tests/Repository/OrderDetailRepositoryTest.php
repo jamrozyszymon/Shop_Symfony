@@ -35,14 +35,14 @@ class OrderDetailRepositoryTest extends KernelTestCase
     {
         $topProducts = $this->entityManager
             ->getRepository(OrderDetail::class)
-            ->findTopSalesProducts(2,6);
+            ->findTopSalesProducts(100,12);
 
         $this->assertIsArray($topProducts);
-        $this->assertCount(2, $topProducts);
+        $this->assertCount(1, $topProducts);
         $this->assertSame(
             array(
-                "products_id" => 2,
-                "num_pr" => '20'
+                "products_id" => 1,
+                "num_pr" => "43"
             ), 
             $topProducts[0]);
     }

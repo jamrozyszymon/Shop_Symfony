@@ -20,7 +20,7 @@
 
         <div class="container">
             <div class="row">
-                <nav class="col-sm-12 col-md-2 pt-4">
+                <nav class="col-sm-12 col-md-2 py-5">
                     {% block nav %}
                         {% include 'nav/nav.html.twig' %}
                     {% endblock %}
@@ -28,12 +28,12 @@
                 
                 <main class="col-sm-12 col-md-10">
                     <div class="row">
-                        <article class="col-sm-12 col-lg-10">
+                        <article class="col-sm-12 col-lg-10 px-3">
                             {% block body %}
                             
                             {% endblock %}
                         </article>
-                        <aside class="d-nome d-lg-block col-lg-2 py-4 ">
+                        <aside class="d-nome d-lg-block col-lg-2 p-4 mt-3 ">
                             {% block aside %}
                                 {% include 'aside/aside.html.twig' %}
                             {% endblock %}

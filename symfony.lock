@@ -6,7 +6,10 @@
             "branch": "main",
             "version": "4.0",
             "ref": "56eaa387b5e48ebcc7c95a893b47dfa1ad51449c"
-        }
+        },
+        "files": [
+            "config/packages/test/dama_doctrine_test_bundle.yaml"
+        ]
     },
     "doctrine/annotations": {
         "version": "1.13",
@@ -29,6 +32,18 @@
             "config/packages/doctrine.yaml",
             "src/Entity/.gitignore",
             "src/Repository/.gitignore"
+        ]
+    },
+    "doctrine/doctrine-fixtures-bundle": {
+        "version": "3.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "3.0",
+            "ref": "1f5514cfa15b947298df4d771e694e578d4c204d"
+        },
+        "files": [
+            "src/DataFixtures/AppFixtures.php"
         ]
     },
     "doctrine/doctrine-migrations-bundle": {
@@ -231,7 +246,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "1.10",
-            "ref": "2e458cc7e6f1df1dad890eb104b81e4f302c9bd4"
+            "ref": "51fec8b86251b9bfc126ebc1827c9a02fa81ee81"
         },
         "files": [
             "assets/app.js",

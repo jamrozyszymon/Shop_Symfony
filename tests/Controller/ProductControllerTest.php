@@ -30,6 +30,7 @@ class ProductControllerTest extends WebTestCase
         $buttonCrawlerNode = $crawler->selectButton('Szukaj');
         $form = $buttonCrawlerNode->form();
         $form['searchby']='not found';
+
         $client->submit($form);
 
         $this->assertSelectorTextContains('h2', 'Brak wyników wyszukiwania dla:');

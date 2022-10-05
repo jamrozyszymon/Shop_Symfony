@@ -1,73 +1,84 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
 
-{% if cart.orderDetails.count > 0 %}
-    {{ form_start(form)}}
+	{% if cart.orderDetails.count > 0 %}
+		{{ form_start(form)}}
 
-    <div class="card mt-4 mt-5">
-        <div class="card-header">
-            <div class="row no-gutters">
-                <div class="col-md-8 mb-5">
-                    <h1>Twój koszyk</h1>
-                </div>
-            <div class="col-md-4">
-                Wartość koszyka: {{cart.countTotal}} zł
-            </div>
-        </div>
-        <div>
-                {{ form_widget(form.delete, {label: 'Opróżnij koszyk', 'attr': {'class': 'btn btn-secondary'}}) }}
-                {{ form_widget(form.proceed, {label: 'Dostawa i płatność', 'attr': {'class': 'btn btn-success'}}) }}
-        </div>
+		<div class="card mt-5">
+			<div class="card-header">
+				<div class="row no-gutters mb-3">
+					<div class="col-md-8 mt-3">
+						<h1>Twój koszyk</h1>
+					</div>
+					<div class="col-md-4 mt-4 h5">
+						Wartość koszyka: &nbsp<b>{{cart.countTotal}}</b> &nbspzł
+					</div>
+				</div>
+				<div>
+					{{ form_widget(form.delete, {label: 'Opróżnij koszyk', 'attr': {'class': 'btn btn-secondary'}}) }}
+					{{ form_widget(form.proceed, {label: 'Dostawa i płatność', 'attr': {'class': 'btn btn-success'}}) }}
+				</div>
 
-            {% for order in form.orderDetails %}
-                <div class="card mb-3 mt-5">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <a href ="{{path('app_product_detail',{'productname': order.vars.data.products.name|lower,'id':order.vars.data.products.id })}}">
-                                <img class="img-fluid" src="{{ asset('build/images/' ~ order.vars.data.products.getImagesFileName) }}"></img>
-                            </a>
-                        </div>
+				<div class="list">
+				{% for order in form.orderDetails %}
+					<div class="card mb-3 mt-5">
+						<div class="row no-gutters">
+							<div class="col-md-4">
+								<a href="{{path('app_product_detail',{'productname': order.vars.data.products.name|lower,'id':order.vars.data.products.id })}}">
+									<img class="img-fluid" src="{{ asset('build/images/' ~ order.vars.data.products.getImagesFileName) }}"></img>
+							</a>
+						</div>
 
-                        <div class="col-md-5">
-                            <div class="card-body">
-                                <a href ="{{path('app_product_detail',{'productname': order.vars.data.products.name|lower,'id':order.vars.data.products.id })}}" class="text-reset text-decoration-none">
-                                    <h5 class="card-title">{{ order.vars.data.products.name }}</h5>
-                                </a>
-                                <p class="card-text">{{ order.vars.data.products.content[:50] }}...</p>
-                                <p class="card-text"><small class="text-muted">W magazynie: {{order.vars.data.products.getQuantity}}</small></p>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ order.vars.data.products.price }} zł</h5>
-                            </div>
-                            <p class="card-title"> Ilość: {{ form_widget(order.quantity, {
+						<div class="col-md-5">
+							<div class="card-body">
+								<a href="{{path('app_product_detail',{'productname': order.vars.data.products.name|lower,'id':order.vars.data.products.id })}}" class="text-reset text-decoration-none">
+									<h5 class="card-title">{{ order.vars.data.products.name }}</h5>
+								</a>
+								<p class="card-text">{{ order.vars.data.products.content[:50] }}...</p>
+								<p class="card-text">
+									<small class="text-muted">W magazynie:
+										{{order.vars.data.products.getQuantity}}</small>
+								</p>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="card-body">
+								<h5 class="card-title">{{ order.vars.data.products.price }}
+									zł</h5>
+							</div>
+							<p class="card-title">
+								Ilość:
+								{{ form_widget(order.quantity, {
                                         'attr': {
                                             'class': 'form-control form-control-sm ' ~ (order.quantity.vars.valid ? '' : 'is-invalid')
                                         }
                                     }) }}</p>
-                            <div class="invalid-feedback">
-                                {{ form_errors(order.quantity) }}
-                            </div>
-                            <div "card-text">
-                                {{ form_widget(order.remove, {label: 'Usuń','attr': {'class': 'btn btn-dark btn-sm'}}) }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
+							<div class="invalid-feedback">
+								{{ form_errors(order.quantity) }}
+							</div>
+							<div "card-text">
+								{{ form_widget(order.remove, {label: 'Usuń','attr': {'class': 'btn btn-dark btn-sm'}}) }}
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+			</div>
 
-    </div>
-    {{ form_end(form)}}
+		</div>
+		{{ form_end(form)}}
 
-{% else %}
-    <div class="empty-cart">
-        <h5>Twój koszyk jest pusty</h5>
-        <a href = {{path('app_product_top_list')}}>Sprawdź najchętniej kupowane produkty</a>
-    </div>
+	{% else %}
+		<div class="card mt-4 mt-5">
+			<div class="card-header">
+				<div class="row no-gutters">
+					<div class="col-md-8 mb-5">
+						<h1>Twój koszyk jest pusty</h1>
+						<a href={{path('app_product_top_list')}}>Sprawdź najchętniej kupowane produkty</a>
+					</div>
+				</div>
+			</div>
 
-{% endif %}
+		{% endif %}
 
-
-{% endblock %}
+	{% endblock %}

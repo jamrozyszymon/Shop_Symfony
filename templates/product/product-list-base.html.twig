@@ -26,11 +26,11 @@
                                         <h5> {{product.getPrice()}} zł </h5>
                                     </div>
                                     <div class="product-cart-body-info-opinion">
-                                        <a class="href_non_dec" href="{{path('home')}}">Opinie (10)</a>
+                                        {# <a class="href_non_dec" href="{{path('home')}}">Opinie (10)</a> #}
                                     </div>
                                 </div> 
                                 <i class="fa fa-thumbs-up">W magazynie: <small class="text-muted">{{product.getQuantity}}</small></i>&nbsp;
-                                <div>
+                                <div class="mt-3">
                                     <a class="btn btn-secondary" href ="{{path('app_product_detail',{'productname': product.name|lower,'id':product.id })}}">Szczegóły</a>
                                 </div>
                         </div>
@@ -39,11 +39,10 @@
                 {% endfor %}
             </div>
         </div>
-        <div>
-            {{ knp_pagination_render(products)}}
-        </div>
     </div>
-
+    {% block pagination %}
+    {% endblock %}
 {% endblock %}
+
 
 

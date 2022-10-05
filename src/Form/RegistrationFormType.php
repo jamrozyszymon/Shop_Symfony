@@ -25,6 +25,7 @@ class RegistrationFormType extends AbstractType
             ->add('lastname')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label_html' => true,
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Zaakceptuj regulamin.',

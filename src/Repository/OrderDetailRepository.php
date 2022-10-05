@@ -47,24 +47,25 @@ class OrderDetailRepository extends ServiceEntityRepository
      * @param int $order - limit of last sales (e.g. 1000)
      * @param int $product - limit of products with highest sales from specified order (e.g. 50)
      */
-    public function findTopSalesProducts($order, $product)
+    public function findTopSalesProducts(int $order, int $product)
     {
 
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = '
-            SELECT products_id, SUM(quantity) AS num_pr FROM order_detail 
-            WHERE orders_id IN 
-            (SELECT * FROM
-            (select id FROM `order` ORDER BY created_at DESC LIMIT :orderlimit) AS q)
+            $sql = '
+            SELECT products_id, SUM(quantity) AS num_pr FROM order_detail AS od
+                JOIN 
+	        (SELECT id FROM `order` ORDER BY created_at DESC LIMIT :orderlimit) AS q
+            ON od.orders_id=q.id
             GROUP BY products_id ORDER BY num_pr DESC LIMIT :productlimit';
+            
 
         $stmt = $conn->prepare($sql);
-        $stmt->bindValue(":orderlimit", $order, ParameterType::INTEGER);
-        $stmt->bindValue(":productlimit",$product, ParameterType::INTEGER);
+   
+        $stmt->bindValue(':orderlimit', $order, ParameterType::INTEGER);
+        $stmt->bindValue(':productlimit',$product, ParameterType::INTEGER);
 
         $resultSet = $stmt->executeQuery();
-            
         return $resultSet->fetchAllAssociative();
 
     }
